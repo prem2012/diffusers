@@ -4,8 +4,8 @@ from diffusers import StableDiffusionPipeline, DDIMScheduler
 from pathlib import Path
 
 # params
-model_path = "/home/prem/dev/models/sd-2-1-sg_v0/2000"
-images_dir = Path("/home/prem/dev/imgs_out/sg/sd-2-1-sg_v0")
+model_path = "/home/prem/dev/models/prem-512-v0/3000"
+images_dir = Path("/home/prem/dev/imgs_out/sg/prem-512-v0-3000-prompts4")
 num_images_per_prompt = 4
 guidance_scale = 8.5 
 num_inference_steps = 80
@@ -15,11 +15,19 @@ width = 512
 # prompts
 negative_prompt="ugly, tiling, poorly drawn hands, poorly drawn feet, poorly drawn face, out of frame, mutation, mutated, extra limbs, extra legs, extra arms, disfigured, deformed, cross-eye, body out of frame, blurry, bad art, bad anatomy, blurred, text, watermark, grainy"
 prompts = []
-prompts.append("a headshot of sgsgsg man, 80mm lens")
-prompts.append("a digital painting of sgsgsg man in a tuxedo, by Max Dauthendey, actor, close-up!!!!!, cute portrait, confident looking, oscar winning, symmetric portrait, hot")
-prompts.append("portrait of sgsgsg man, D&D, muscular, robes, intricate, elegant, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha")
-prompts.append("sgsgsg man boisterously dancing around the room by himself holding an empty wine bottle")
-prompts.append("ultrarealistic portrait of sgsgsg man, cinematic lighting, award winning photo, 80mm lens")
+# prompts.append("a headshot of pknpknpknat man, 80mm lens")
+# prompts.append("a digital painting of pknpknpknat man in a tuxedo, by Max Dauthendey, actor, close-up!!!!!, cute portrait, confident looking, oscar winning, symmetric portrait, hot")
+# prompts.append("portrait of pknpknpknat man, D&D, muscular, robes, intricate, elegant, highly detailed, digital painting, artstation, concept art, smooth, sharp focus, illustration, art by artgerm and greg rutkowski and alphonse mucha")
+# prompts.append("pknpknpknat man boisterously dancing around the room by himself holding an empty wine bottle")
+# prompts.append("ultrarealistic portrait of pknpknpknat man, cinematic lighting, award winning photo, 80mm lens")
+# prompts.append("a photoshoot of pknpknpknat man, muscular, bodybuilder, 55mm lens")
+# prompts.append("a photoshoot of pknpknpknat man, inventor, in front of a self driving car")
+# prompts.append("a photoshoot of pknpknpknat man, inventor, in front of a self driving tractor")
+prompts.append("pknpknpknat man painted by van gogh")
+prompts.append("pknpknpknat man as mona lisa")
+prompts.append("an ultrarealistic portrait of pknpknpknat man, award winning")
+prompts.append("a caricature drawing of pknpknpknat")
+prompts.append("a picture of pknpknpknat man looking at a painting of himself")
 
 # setup
 # scheduler = DDIMScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", clip_sample=False, set_alpha_to_one=False)
