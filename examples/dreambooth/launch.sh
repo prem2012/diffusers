@@ -1,25 +1,25 @@
-export MODEL_NAME="runwayml/stable-diffusion-v1-5"
-export OUTPUT_DIR="../../../models/alvan_shivam"
+export MODEL_NAME="stabilityai/stable-diffusion-2-1-base"
+export INSTANCE_DIR="/home/prem/dev/data/sg/"
+export CLASS_DIR="/home/prem/dev/data/man/"
+export OUTPUT_DIR="/home/prem/dev/models/sd-2-1-sg_v0"
 
 accelerate launch train_dreambooth.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --pretrained_vae_name_or_path="stabilityai/sd-vae-ft-mse" \
+  --instance_data_dir=$INSTANCE_DIR \
+  --class_data_dir=$CLASS_DIR \
   --output_dir=$OUTPUT_DIR \
-  --revision="fp16" \
-  --with_prior_preservation --prior_loss_weight=1.0 \
-  --seed=3434554 \
+  --train_text_encoder \
+  --instance_prompt="a photo of sgsgsg man" \
+  --class_prompt="a photo of a man" \
+  --with_prior_preservation \
+  --prior_loss_weight=1.0 \
+  --gradient_accumulation_steps=1 \
   --resolution=512 \
   --train_batch_size=1 \
-  --train_text_encoder \
-  --mixed_precision="fp16" \
-  --use_8bit_adam \
-  --gradient_accumulation_steps=1 \
-  --learning_rate=1e-6 \
-  --lr_scheduler="constant" \
-  --lr_warmup_steps=0 \
-  --num_class_images=50 \
-  --sample_batch_size=4 \
-  --max_train_steps=800 \
-  --save_interval=400 \
-  --save_sample_prompt="photo of zwx dog" \
-  --concepts_list="concepts_list.json"
+  --learning_rate=7e-7 \
+  --lr_scheduler="constant_with_warmup" \
+  --lr_warmup_steps=100 \
+  --num_class_images=378 \
+  --max_train_steps=2000 \
+  --mixed_precision=no
