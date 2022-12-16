@@ -292,7 +292,9 @@ class DreamBoothDataset(Dataset):
         self.class_images_path = []
 
         for concept in concepts_list:
-            inst_img_path = [(x, concept["instance_prompt"]) for x in Path(concept["instance_data_dir"]).iterdir() if x.is_file()]
+            sorted_dirs = [x for x in sorted(Path(concept["instance_data_dir"]).iterdir()) if x.is_file()]
+            inst_img_path = [(x, p) for x, p in zip(sorted_dirs, concept["instance_prompts"])]
+            print(inst_img_path)
             self.instance_images_path.extend(inst_img_path)
 
             if with_prior_preservation:

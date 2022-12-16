@@ -1,17 +1,14 @@
 export MODEL_NAME="stabilityai/stable-diffusion-2-1-base"
-export INSTANCE_DIR="/home/prem/dev/data/prem_512_selected/"
-export CLASS_DIR="/home/prem/dev/data/man/"
+export INSTANCE_DIR="/home/prem/dev/avatars/dreambooth/data/prem_512_selected/"
+export CLASS_DIR="/home/prem/dev/avatars/dreambooth/data/man/"
 export OUTPUT_DIR="/home/prem/dev/models/prem-512-v0"
 
 accelerate launch train_dreambooth.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
-  --pretrained_vae_name_or_path="stabilityai/sd-vae-ft-mse" \
-  --instance_data_dir=$INSTANCE_DIR \
-  --class_data_dir=$CLASS_DIR \
   --output_dir=$OUTPUT_DIR \
+  --pretrained_vae_name_or_path="stabilityai/sd-vae-ft-mse" \
+  --concepts_list="/home/prem/dev/avatars/dreambooth/diffusers/examples/dreambooth/concepts_list_prompts.json"
   --train_text_encoder \
-  --instance_prompt="a photo of pknpknpknat man" \
-  --class_prompt="a photo of a man" \
   --with_prior_preservation \
   --prior_loss_weight=1.0 \
   --gradient_accumulation_steps=1 \

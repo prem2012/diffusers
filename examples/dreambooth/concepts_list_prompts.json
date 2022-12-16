@@ -1,0 +1,33 @@
+[
+    {
+        "instance_prompts":    [
+            "A photo of pknpknpknat man",
+            "A photo of pknpknpknat man without glasses",
+            "A photo of pknpknpknat man sitting in a sofa",
+            "A photo of pknpknpknat man sitting in a sofa",
+            "A photo of pknpknpknat man sitting with some food on the table",
+            "A photo of pknpknpknat man with two envelopes in his hands",
+            "A photo of pknpknpknat man smiling",
+            "A photo of pknpknpknat man with a woman by his side",
+            "A photo of pknpknpknat man standing on a cliff near the ocean",
+            "A photo of pknpknpknat man in a green field with the sun and an ocean in the background",
+            "A photo of pknpknpknat man holding a cat in his arms",
+            "A photo of pknpknpknat man with the goldengate bridge in the background",
+            "A photo of pknpknpknat man sitting at a table in a restaurant with food",
+            "A photo of pknpknpknat man with a lego set by his side",
+            "A photo of pknpknpknat man drinking from a glass using a straw",
+            "A photo of pknpknpknat man sitting under an arch",
+            "A photo of pknpknpknat man standing under an arch with his arms folded",
+            "A photo of pknpknpknat man wearing a grey jacket",
+            "A photo of pknpknpknat in a library, with his arms folded",
+            "A photo of pknpknpknat drinking from a cup using a straw",
+            "A photo of pknpknpknat man with trees in the background",
+            "A photo of pknpknpknat man wearing a bag, with a hoodie",
+            "A photo of pknpknpknat man next to a tv screen",
+            "A photo of pknpknpknat man in a stadium, with a woman by his side"
+        ],
+        "class_prompt":         "a photo of a man",
+        "instance_data_dir":    "/home/prem/dev/avatars/dreambooth/data/prem_512_selected/",
+        "class_data_dir":       "/home/prem/dev/avatars/dreambooth/data/man/"
+    }
+]
