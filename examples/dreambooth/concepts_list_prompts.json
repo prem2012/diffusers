@@ -27,7 +27,7 @@
             "A photo of pknpknpknat man in a stadium, with a woman by his side"
         ],
         "class_prompt":         "a photo of a man",
-        "instance_data_dir":    "/home/prem/dev/avatars/dreambooth/data/prem_512_selected/",
-        "class_data_dir":       "/home/prem/dev/avatars/dreambooth/data/man/"
+        "instance_data_dir":    "/home/prem/dev/data/prem_512_selected/",
+        "class_data_dir":       "/home/prem/dev/data/man/"
     }
 ]

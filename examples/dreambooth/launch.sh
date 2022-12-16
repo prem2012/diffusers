@@ -7,7 +7,7 @@ accelerate launch train_dreambooth.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --output_dir=$OUTPUT_DIR \
   --pretrained_vae_name_or_path="stabilityai/sd-vae-ft-mse" \
-  --concepts_list="/home/prem/dev/avatars/dreambooth/diffusers/examples/dreambooth/concepts_list_prompts.json"
+  --concepts_list="/home/prem/dev/diffusers/examples/dreambooth/concepts_list_prompts.json" \
   --train_text_encoder \
   --with_prior_preservation \
   --prior_loss_weight=1.0 \
