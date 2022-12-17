@@ -15,7 +15,7 @@
     </a>
 </p>
 
-This is my fork of https://github.com/ShivamShrirao/diffusers to play around with for obby projects.
+This is my fork of https://github.com/ShivamShrirao/diffusers to play around with for hobby projects.
 
 🤗 Diffusers provides pretrained diffusion models across multiple modalities, such as vision and audio, and serves
 as a modular toolbox for inference and training of diffusion models.
