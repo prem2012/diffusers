@@ -1,6 +1,6 @@
 export MODEL_NAME="stabilityai/stable-diffusion-2-1-base"
 export INSTANCE_DIR="/home/prem/dev/avatars/dreambooth/data/prem_512_selected/"
-export CLASS_DIR="/home/prem/dev/avatars/dreambooth/data/man/"
+export CLASS_DIR="/home/prem/dev/data/man/"
 export OUTPUT_DIR="/home/prem/dev/models/prem-512-v0"
 
 accelerate launch train_dreambooth.py \
