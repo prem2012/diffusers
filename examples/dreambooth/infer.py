@@ -1,10 +1,15 @@
 import torch
 import hashlib
-from diffusers import StableDiffusionPipeline, DDIMScheduler
+import requests
+from diffusers import StableDiffusionPipeline, DDIMScheduler, StableDiffusionImg2ImgPipeline
+from io import BytesIO
 from pathlib import Path
+from PIL import Image
 
 # params
-model_path = "/home/prem/dev/models/prem-512-v0/3000"
+model_path = "/home/prem/dev/models/prem-512-v0-prompts/3000"
+# model_path = "runwayml/stable-diffusion-v1-5"
+# model_path = "stabilityai/stable-diffusion-2-1-base"
 images_dir = Path("/home/prem/dev/imgs_out/sg/prem-512-v0-3000-prompts_0_10")
 num_images_per_prompt = 4
 guidance_scale = 8.5 
@@ -27,10 +32,20 @@ prompts = []
 
 # setup
 # scheduler = DDIMScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", clip_sample=False, set_alpha_to_one=False)
-pipe = StableDiffusionPipeline.from_pretrained(model_path, safety_checker=None, torch_dtype=torch.float32).to("cuda")
+pipe = StableDiffusionImg2ImgPipeline.from_pretrained(model_path, safety_checker=None, torch_dtype=torch.float32).to("cuda")
 
-if not images_dir.exists():
-    images_dir.mkdir(parents=True)
+# Img to image
+url = "https://pyxis.nymag.com/v1/imgs/128/67e/c245b5400d4a1895d7630d0af6542e9c2e-09-captain-america.rsquare.w330.jpg"
+response = requests.get(url)
+init_image = Image.open(BytesIO(response.content)).convert("RGB")
+init_image = init_image.resize((512, 512))
+# init_image = Image.open(r"/home/prem/dev/data/prem_512_selected/0013.jpg")
+prompt = "A photo of pknpknpknat man"
+images = pipe(prompt=prompt, init_image=init_image, num_inference_steps=200, strength=0.25, guidance_scale=7.5).images
+images[0].save("im2im_test.png")
+
+# if not images_dir.exists():
+#     images_dir.mkdir(parents=True)
 
 # inference function per prompt
 def gen_prompt_images(num, prompt):
@@ -44,5 +59,5 @@ def gen_prompt_images(num, prompt):
         image.save(image_filename)
 
 # generate images
-for prompt_num, prompt in enumerate(prompts):
-    gen_prompt_images(prompt_num, prompt)
+# for prompt_num, prompt in enumerate(prompts):
+#     gen_prompt_images(prompt_num, prompt)
