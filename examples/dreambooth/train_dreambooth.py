@@ -4,6 +4,7 @@ import itertools
 import random
 import json
 import math
+import mlflow
 import os
 from contextlib import nullcontext
 from pathlib import Path
@@ -437,6 +438,9 @@ def main(args):
         with open(args.concepts_list, "r") as f:
             args.concepts_list = json.load(f)
 
+        # If we have a concepts list file, save it to artifacts
+        mlflow.log_artifacts(args.concepts_list)
+
     if args.with_prior_preservation:
         pipeline = None
         for concept in args.concepts_list:
@@ -534,6 +538,7 @@ def main(args):
     if args.use_8bit_adam:
         try:
             import bitsandbytes as bnb
+        # TODO(prem): Work on how to handle erroring runs in MLFlow. We may still need them.
         except ImportError:
             raise ImportError(
                 "To use 8-bit Adam, please install the bitsandbytes library: `pip install bitsandbytes`."
@@ -803,6 +808,10 @@ def main(args):
                 progress_bar.set_postfix(**logs)
                 accelerator.log(logs, step=global_step)
 
+                # Log to mlflow as well.
+                mlflow.log_param("lr", lr_scheduler.get_last_lr()[0])
+                mlflow.log_metric("loss", loss_avg.avg.item(), step=global_step)
+
             if global_step > 0 and not global_step % args.save_interval and global_step >= args.save_min_steps:
                 save_weights(global_step)
 
@@ -816,9 +825,39 @@ def main(args):
 
     save_weights(global_step)
 
+    # Log the entire folder to artifacts after saving.
+    # This is multiple gigabytes pushed to s3. Be mindful of the bottleneck.
+    mlflow.log_artifacts(args.output_dir)
+
     accelerator.end_training()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    main(args)
+    
+    # Set mlflow tracking uri.
+    mlflow.set_tracking_uri(args.mlflow_tracking_uri)
+
+    # Set experiment. For not, experiment is dreambooth for this training script and
+    # only the run_ids differ. We can always organize this however we want.
+    # Get experiment ID.
+    experiment = mlflow.get_experiment_by_name("Dreambooth")
+    if experiment is None:
+        experiment_id = mlflow.create_experiment("Dreambooth")
+    else:
+        experiment_id = experiment.experiment_id
+
+    # Set the experiment
+    mlflow.set_experiment(args.experiment)
+
+    # TODO(prem): Get all experiments using the MLFlow client API and
+    # check for runs with the same name and handle it.
+    # Until then, use default assigned run names.
+    with mlflow.start_run(args.experiment):
+        # Record params held in args.
+        # TODO(prem): Identify only useful params to log.
+        for param, val in vars(args).items():
+            mlflow.log_param(param, val)
+
+        # Run training.
+        main(args)
